@@ -2,9 +2,9 @@
 // locale : Luxembourgish (lb)
 // author : mweimerskirch : https://github.com/mweimerskirch, David Raison : https://github.com/kwisatz
 
-// Note: Luxembourgish has a very particular phonological rule ("Eifeler Regel") that causes the
-// deletion of the final "n" in certain contexts. That's what the "eifelerRegelAppliesToWeekday"
-// and "eifelerRegelAppliesToNumber" methods are meant for
+// Note: Luxembourgish has a very particular phonological rule ('Eifeler Regel') that causes the
+// deletion of the final 'n' in certain contexts. That's what the 'eifelerRegelAppliesToWeekday'
+// and 'eifelerRegelAppliesToNumber' methods are meant for
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -12,7 +12,7 @@
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory(window.moment); // Browser global
+        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
     }
 }(function (moment) {
     function processRelativeTime(number, withoutSuffix, key, isFuture) {
@@ -29,22 +29,22 @@
     function processFutureTime(string) {
         var number = string.substr(0, string.indexOf(' '));
         if (eifelerRegelAppliesToNumber(number)) {
-            return "a " + string;
+            return 'a ' + string;
         }
-        return "an " + string;
+        return 'an ' + string;
     }
 
     function processPastTime(string) {
         var number = string.substr(0, string.indexOf(' '));
         if (eifelerRegelAppliesToNumber(number)) {
-            return "viru " + string;
+            return 'viru ' + string;
         }
-        return "virun " + string;
+        return 'virun ' + string;
     }
 
     /**
-     * Returns true if the word before the given number loses the "-n" ending.
-     * e.g. "an 10 Deeg" but "a 5 Deeg"
+     * Returns true if the word before the given number loses the '-n' ending.
+     * e.g. 'an 10 Deeg' but 'a 5 Deeg'
      *
      * @param number {integer}
      * @returns {boolean}
@@ -84,26 +84,27 @@
     }
 
     return moment.defineLocale('lb', {
-        months: "Januar_Februar_Mäerz_Abrëll_Mee_Juni_Juli_August_September_Oktober_November_Dezember".split("_"),
-        monthsShort: "Jan._Febr._Mrz._Abr._Mee_Jun._Jul._Aug._Sept._Okt._Nov._Dez.".split("_"),
-        weekdays: "Sonndeg_Méindeg_Dënschdeg_Mëttwoch_Donneschdeg_Freideg_Samschdeg".split("_"),
-        weekdaysShort: "So._Mé._Dë._Më._Do._Fr._Sa.".split("_"),
-        weekdaysMin: "So_Mé_Dë_Më_Do_Fr_Sa".split("_"),
+        months: 'Januar_Februar_Mäerz_Abrëll_Mee_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
+        monthsShort: 'Jan._Febr._Mrz._Abr._Mee_Jun._Jul._Aug._Sept._Okt._Nov._Dez.'.split('_'),
+        weekdays: 'Sonndeg_Méindeg_Dënschdeg_Mëttwoch_Donneschdeg_Freideg_Samschdeg'.split('_'),
+        weekdaysShort: 'So._Mé._Dë._Më._Do._Fr._Sa.'.split('_'),
+        weekdaysMin: 'So_Mé_Dë_Më_Do_Fr_Sa'.split('_'),
         longDateFormat: {
-            LT: "H:mm [Auer]",
-            L: "DD.MM.YYYY",
-            LL: "D. MMMM YYYY",
-            LLL: "D. MMMM YYYY LT",
-            LLLL: "dddd, D. MMMM YYYY LT"
+            LT: 'H:mm [Auer]',
+            LTS: 'H:mm:ss [Auer]',
+            L: 'DD.MM.YYYY',
+            LL: 'D. MMMM YYYY',
+            LLL: 'D. MMMM YYYY LT',
+            LLLL: 'dddd, D. MMMM YYYY LT'
         },
         calendar: {
-            sameDay: "[Haut um] LT",
-            sameElse: "L",
+            sameDay: '[Haut um] LT',
+            sameElse: 'L',
             nextDay: '[Muer um] LT',
             nextWeek: 'dddd [um] LT',
             lastDay: '[Gëschter um] LT',
             lastWeek: function () {
-                // Different date string for "Dënschdeg" (Tuesday) and "Donneschdeg" (Thursday) due to phonological rule
+                // Different date string for 'Dënschdeg' (Tuesday) and 'Donneschdeg' (Thursday) due to phonological rule
                 switch (this.day()) {
                     case 2:
                     case 4:
@@ -116,18 +117,19 @@
         relativeTime : {
             future : processFutureTime,
             past : processPastTime,
-            s : "e puer Sekonnen",
+            s : 'e puer Sekonnen',
             m : processRelativeTime,
-            mm : "%d Minutten",
+            mm : '%d Minutten',
             h : processRelativeTime,
-            hh : "%d Stonnen",
+            hh : '%d Stonnen',
             d : processRelativeTime,
-            dd : "%d Deeg",
+            dd : '%d Deeg',
             M : processRelativeTime,
-            MM : "%d Méint",
+            MM : '%d Méint',
             y : processRelativeTime,
-            yy : "%d Joer"
+            yy : '%d Joer'
         },
+        ordinalParse: /\d{1,2}\./,
         ordinal: '%d.',
         week: {
             dow: 1, // Monday is the first day of the week.

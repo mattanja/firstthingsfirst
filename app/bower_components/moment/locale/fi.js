@@ -8,7 +8,7 @@
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory(window.moment); // Browser global
+        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
     }
 }(function (moment) {
     var numbersPast = 'nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän'.split(' '),
@@ -18,7 +18,7 @@
         ];
 
     function translate(number, withoutSuffix, key, isFuture) {
-        var result = "";
+        var result = '';
         switch (key) {
         case 's':
             return isFuture ? 'muutaman sekunnin' : 'muutama sekunti';
@@ -48,7 +48,7 @@
             result = isFuture ? 'vuoden' : 'vuotta';
             break;
         }
-        result = verbalNumber(number, isFuture) + " " + result;
+        result = verbalNumber(number, isFuture) + ' ' + result;
         return result;
     }
 
@@ -57,21 +57,22 @@
     }
 
     return moment.defineLocale('fi', {
-        months : "tammikuu_helmikuu_maaliskuu_huhtikuu_toukokuu_kesäkuu_heinäkuu_elokuu_syyskuu_lokakuu_marraskuu_joulukuu".split("_"),
-        monthsShort : "tammi_helmi_maalis_huhti_touko_kesä_heinä_elo_syys_loka_marras_joulu".split("_"),
-        weekdays : "sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai".split("_"),
-        weekdaysShort : "su_ma_ti_ke_to_pe_la".split("_"),
-        weekdaysMin : "su_ma_ti_ke_to_pe_la".split("_"),
+        months : 'tammikuu_helmikuu_maaliskuu_huhtikuu_toukokuu_kesäkuu_heinäkuu_elokuu_syyskuu_lokakuu_marraskuu_joulukuu'.split('_'),
+        monthsShort : 'tammi_helmi_maalis_huhti_touko_kesä_heinä_elo_syys_loka_marras_joulu'.split('_'),
+        weekdays : 'sunnuntai_maanantai_tiistai_keskiviikko_torstai_perjantai_lauantai'.split('_'),
+        weekdaysShort : 'su_ma_ti_ke_to_pe_la'.split('_'),
+        weekdaysMin : 'su_ma_ti_ke_to_pe_la'.split('_'),
         longDateFormat : {
-            LT : "HH.mm",
-            L : "DD.MM.YYYY",
-            LL : "Do MMMM[ta] YYYY",
-            LLL : "Do MMMM[ta] YYYY, [klo] LT",
-            LLLL : "dddd, Do MMMM[ta] YYYY, [klo] LT",
-            l : "D.M.YYYY",
-            ll : "Do MMM YYYY",
-            lll : "Do MMM YYYY, [klo] LT",
-            llll : "ddd, Do MMM YYYY, [klo] LT"
+            LT : 'HH.mm',
+            LTS : 'HH.mm.ss',
+            L : 'DD.MM.YYYY',
+            LL : 'Do MMMM[ta] YYYY',
+            LLL : 'Do MMMM[ta] YYYY, [klo] LT',
+            LLLL : 'dddd, Do MMMM[ta] YYYY, [klo] LT',
+            l : 'D.M.YYYY',
+            ll : 'Do MMM YYYY',
+            lll : 'Do MMM YYYY, [klo] LT',
+            llll : 'ddd, Do MMM YYYY, [klo] LT'
         },
         calendar : {
             sameDay : '[tänään] [klo] LT',
@@ -82,8 +83,8 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : "%s päästä",
-            past : "%s sitten",
+            future : '%s päästä',
+            past : '%s sitten',
             s : translate,
             m : translate,
             mm : translate,
@@ -96,7 +97,8 @@
             y : translate,
             yy : translate
         },
-        ordinal : "%d.",
+        ordinalParse: /\d{1,2}\./,
+        ordinal : '%d.',
         week : {
             dow : 1, // Monday is the first day of the week.
             doy : 4  // The week that contains Jan 4th is the first week of the year.

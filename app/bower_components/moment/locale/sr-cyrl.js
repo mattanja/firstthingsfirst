@@ -8,7 +8,7 @@
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory(window.moment); // Browser global
+        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
     }
 }(function (moment) {
     var translator = {
@@ -41,11 +41,12 @@
         weekdaysShort: ['нед.', 'пон.', 'уто.', 'сре.', 'чет.', 'пет.', 'суб.'],
         weekdaysMin: ['не', 'по', 'ут', 'ср', 'че', 'пе', 'су'],
         longDateFormat: {
-            LT: "H:mm",
-            L: "DD. MM. YYYY",
-            LL: "D. MMMM YYYY",
-            LLL: "D. MMMM YYYY LT",
-            LLLL: "dddd, D. MMMM YYYY LT"
+            LT: 'H:mm',
+            LTS : 'LT:ss',
+            L: 'DD. MM. YYYY',
+            LL: 'D. MMMM YYYY',
+            LLL: 'D. MMMM YYYY LT',
+            LLLL: 'dddd, D. MMMM YYYY LT'
         },
         calendar: {
             sameDay: '[данас у] LT',
@@ -82,20 +83,21 @@
             sameElse : 'L'
         },
         relativeTime : {
-            future : "за %s",
-            past   : "пре %s",
-            s      : "неколико секунди",
+            future : 'за %s',
+            past   : 'пре %s',
+            s      : 'неколико секунди',
             m      : translator.translate,
             mm     : translator.translate,
             h      : translator.translate,
             hh     : translator.translate,
-            d      : "дан",
+            d      : 'дан',
             dd     : translator.translate,
-            M      : "месец",
+            M      : 'месец',
             MM     : translator.translate,
-            y      : "годину",
+            y      : 'годину',
             yy     : translator.translate
         },
+        ordinalParse: /\d{1,2}\./,
         ordinal : '%d.',
         week : {
             dow : 1, // Monday is the first day of the week.
