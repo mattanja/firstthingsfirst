@@ -10,7 +10,7 @@
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory(window.moment); // Browser global
+        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
     }
 }(function (moment) {
     function plural(word, num) {
@@ -67,14 +67,15 @@
         months : monthsCaseReplace,
         monthsShort : 'студ_лют_сак_крас_трав_чэрв_ліп_жнів_вер_каст_ліст_снеж'.split('_'),
         weekdays : weekdaysCaseReplace,
-        weekdaysShort : "нд_пн_ат_ср_чц_пт_сб".split("_"),
-        weekdaysMin : "нд_пн_ат_ср_чц_пт_сб".split("_"),
+        weekdaysShort : 'нд_пн_ат_ср_чц_пт_сб'.split('_'),
+        weekdaysMin : 'нд_пн_ат_ср_чц_пт_сб'.split('_'),
         longDateFormat : {
-            LT : "HH:mm",
-            L : "DD.MM.YYYY",
-            LL : "D MMMM YYYY г.",
-            LLL : "D MMMM YYYY г., LT",
-            LLLL : "dddd, D MMMM YYYY г., LT"
+            LT : 'HH:mm',
+            LTS : 'LT:ss',
+            L : 'DD.MM.YYYY',
+            LL : 'D MMMM YYYY г.',
+            LLL : 'D MMMM YYYY г., LT',
+            LLLL : 'dddd, D MMMM YYYY г., LT'
         },
         calendar : {
             sameDay: '[Сёння ў] LT',
@@ -99,34 +100,35 @@
             sameElse: 'L'
         },
         relativeTime : {
-            future : "праз %s",
-            past : "%s таму",
-            s : "некалькі секунд",
+            future : 'праз %s',
+            past : '%s таму',
+            s : 'некалькі секунд',
             m : relativeTimeWithPlural,
             mm : relativeTimeWithPlural,
             h : relativeTimeWithPlural,
             hh : relativeTimeWithPlural,
-            d : "дзень",
+            d : 'дзень',
             dd : relativeTimeWithPlural,
-            M : "месяц",
+            M : 'месяц',
             MM : relativeTimeWithPlural,
-            y : "год",
+            y : 'год',
             yy : relativeTimeWithPlural
         },
 
 
         meridiem : function (hour, minute, isLower) {
             if (hour < 4) {
-                return "ночы";
+                return 'ночы';
             } else if (hour < 12) {
-                return "раніцы";
+                return 'раніцы';
             } else if (hour < 17) {
-                return "дня";
+                return 'дня';
             } else {
-                return "вечара";
+                return 'вечара';
             }
         },
 
+        ordinalParse: /\d{1,2}-(і|ы|га)/,
         ordinal: function (number, period) {
             switch (period) {
             case 'M':

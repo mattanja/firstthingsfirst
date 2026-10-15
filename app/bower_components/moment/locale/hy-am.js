@@ -8,7 +8,7 @@
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory(window.moment); // Browser global
+        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
     }
 }(function (moment) {
     function monthsCaseReplace(m, format) {
@@ -40,14 +40,15 @@
         months : monthsCaseReplace,
         monthsShort : monthsShortCaseReplace,
         weekdays : weekdaysCaseReplace,
-        weekdaysShort : "կրկ_երկ_երք_չրք_հնգ_ուրբ_շբթ".split("_"),
-        weekdaysMin : "կրկ_երկ_երք_չրք_հնգ_ուրբ_շբթ".split("_"),
+        weekdaysShort : 'կրկ_երկ_երք_չրք_հնգ_ուրբ_շբթ'.split('_'),
+        weekdaysMin : 'կրկ_երկ_երք_չրք_հնգ_ուրբ_շբթ'.split('_'),
         longDateFormat : {
-            LT : "HH:mm",
-            L : "DD.MM.YYYY",
-            LL : "D MMMM YYYY թ.",
-            LLL : "D MMMM YYYY թ., LT",
-            LLLL : "dddd, D MMMM YYYY թ., LT"
+            LT : 'HH:mm',
+            LTS : 'LT:ss',
+            L : 'DD.MM.YYYY',
+            LL : 'D MMMM YYYY թ.',
+            LLL : 'D MMMM YYYY թ., LT',
+            LLLL : 'dddd, D MMMM YYYY թ., LT'
         },
         calendar : {
             sameDay: '[այսօր] LT',
@@ -62,33 +63,34 @@
             sameElse: 'L'
         },
         relativeTime : {
-            future : "%s հետո",
-            past : "%s առաջ",
-            s : "մի քանի վայրկյան",
-            m : "րոպե",
-            mm : "%d րոպե",
-            h : "ժամ",
-            hh : "%d ժամ",
-            d : "օր",
-            dd : "%d օր",
-            M : "ամիս",
-            MM : "%d ամիս",
-            y : "տարի",
-            yy : "%d տարի"
+            future : '%s հետո',
+            past : '%s առաջ',
+            s : 'մի քանի վայրկյան',
+            m : 'րոպե',
+            mm : '%d րոպե',
+            h : 'ժամ',
+            hh : '%d ժամ',
+            d : 'օր',
+            dd : '%d օր',
+            M : 'ամիս',
+            MM : '%d ամիս',
+            y : 'տարի',
+            yy : '%d տարի'
         },
 
         meridiem : function (hour) {
             if (hour < 4) {
-                return "գիշերվա";
+                return 'գիշերվա';
             } else if (hour < 12) {
-                return "առավոտվա";
+                return 'առավոտվա';
             } else if (hour < 17) {
-                return "ցերեկվա";
+                return 'ցերեկվա';
             } else {
-                return "երեկոյան";
+                return 'երեկոյան';
             }
         },
 
+        ordinalParse: /\d{1,2}|\d{1,2}-(ին|րդ)/,
         ordinal: function (number, period) {
             switch (period) {
             case 'DDD':
