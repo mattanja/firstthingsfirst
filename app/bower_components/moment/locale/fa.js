@@ -1,5 +1,5 @@
 // moment.js locale configuration
-// locale : Persian
+// locale : Persian (fa)
 // author : Ebrahim Byagowi : https://github.com/ebraminio
 
 (function (factory) {
@@ -8,7 +8,7 @@
     } else if (typeof exports === 'object') {
         module.exports = factory(require('../moment')); // Node
     } else {
-        factory(window.moment); // Browser global
+        factory((typeof global !== 'undefined' ? global : this).moment); // node or other global
     }
 }(function (moment) {
     var symbolMap = {
@@ -43,6 +43,7 @@
         weekdaysMin : 'ی_د_س_چ_پ_ج_ش'.split('_'),
         longDateFormat : {
             LT : 'HH:mm',
+            LTS : 'LT:ss',
             L : 'DD/MM/YYYY',
             LL : 'D MMMM YYYY',
             LLL : 'D MMMM YYYY LT',
@@ -50,9 +51,9 @@
         },
         meridiem : function (hour, minute, isLower) {
             if (hour < 12) {
-                return "قبل از ظهر";
+                return 'قبل از ظهر';
             } else {
-                return "بعد از ظهر";
+                return 'بعد از ظهر';
             }
         },
         calendar : {
@@ -88,6 +89,7 @@
                 return symbolMap[match];
             }).replace(/,/g, '،');
         },
+        ordinalParse: /\d{1,2}م/,
         ordinal : '%dم',
         week : {
             dow : 6, // Saturday is the first day of the week.

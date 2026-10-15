@@ -11,10 +11,11 @@
     "angular-loader": "1.2.x",
     "angular-mocks": "~1.2.x",
     "html5-boilerplate": "~4.3.0",
-    "bootstrap": "*",
-    "angular-bootstrap": "*",
-    "ngDraggable": "git@github.com:fatlinesofcode/ngDraggable.git",
-    "moment": "~2.8.1",
-    "angular-moment": "~0.8.0"
+    "bootstrap": "~3.4.1",
+    "jquery": "~2.1.1",
+    "angular-bootstrap": "~0.11.2",
+    "ngDraggable": "https://github.com/fatlinesofcode/ngDraggable.git#2b5c71bac1d9cabb931f39fb9fdaf8cbf43b5d29",
+    "moment": "~2.8.4",
+    "angular-moment": "~0.8.3"
   }
 }
