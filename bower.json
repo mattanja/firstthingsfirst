@@ -14,7 +14,7 @@
     "bootstrap": "*",
     "angular-bootstrap": "*",
     "ngDraggable": "git@github.com:fatlinesofcode/ngDraggable.git",
-    "moment": "~2.8.1",
+    "moment": "~2.31.0",
     "angular-moment": "~0.8.0"
   }
 }
