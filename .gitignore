@@ -17,3 +17,11 @@ tmp
 !/app/bower_components/bootstrap/dist
 /app/bower_components/jquery/*
 !/app/bower_components/jquery/dist
+/app/bower_components/moment/*
+!/app/bower_components/moment/moment.js
+!/app/bower_components/moment/min
+!/app/bower_components/moment/locale
+!/app/bower_components/moment/LICENSE
+!/app/bower_components/moment/README.md
+!/app/bower_components/moment/CHANGELOG.md
+!/app/bower_components/moment/bower.json
